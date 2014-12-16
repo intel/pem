@@ -43,6 +43,8 @@ Tool for emulating peripherals.
 
 %install
 rm -rf %{buildroot}
+install -d %{buildroot}/%{_datadir}/%{projectname}/pem_Arduino
+install -m 0644 src/pem_Arduino/* %{buildroot}/%{_datadir}/%{projectname}/pem_Arduino/
 %{__python} setup.py install -O2 --root=%{buildroot} --prefix=%{_prefix}
 %fdupes %{buildroot}
 
