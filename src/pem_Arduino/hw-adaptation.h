@@ -54,7 +54,6 @@ typedef enum {
 
 typedef uint32_t Time;
 
-#define HALF_TIME ((((Time)0) - 1) / 2)
 typedef unsigned char MessageChar;
 typedef unsigned char CharsCounter;
 
