@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Intel Corporation.
+ * Copyright (c) 2014, 2015, Intel Corporation.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -14,19 +14,7 @@
 #ifndef HW_ADAPTATION_H
 #define HW_ADAPTATION_H
 
-#if defined (PC_DEBUG)
-    #include <cstddef>
-    #include <climits>
-    #include <stdio.h>
-    #include <iostream>
-
-    #define log_debug(msg) std::cout << msg
-    #define pinMode(a, b)
-    #define digitalWrite(a, b)
-
-    typedef  enum {LOW = 0, HIGH} LogicalStates;
-    typedef  enum {INPUT = 0, OUTPUT} PinDirections;
-#elif defined(ARDUINO_ARCH_SAM)
+#if defined(ARDUINO_ARCH_SAM)
     #include <cstddef>
     #include <climits>
     #include <Arduino.h>
@@ -57,10 +45,6 @@ typedef enum{
     SYSTEM_TIC = SYSTEM_TIC_10kHz  // Change this to modify TIC frequency
 } SystemTicPreloadValues;
 
-#endif
-
-#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_SAM)
-    #define log(msg)
 #endif
 
 typedef enum {
