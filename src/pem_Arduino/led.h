@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Intel Corporation.
+ * Copyright (c) 2014, 2015, Intel Corporation.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -13,53 +13,100 @@
 
 #ifndef LED_H
 #define LED_H
+#include "system_time.h"
 #include "hw-adaptation.h"
+
 
 typedef enum {LED_OFF = LOW, LED_ON = HIGH} LEDStatus;
 typedef enum {ONBOARD = PIN_13, RED = PIN_04, GREEN = PIN_05, BLUE = PIN_06} LEDPins;
+typedef enum {LED_TIMED, LED_SCALED, LED_MANUAL} LEDControlModes;
 
 class LED {
     private:
         LEDStatus status;
         LEDPins ledpin;
+        unsigned long long scaler;
         unsigned long long counter;
-    public:
-        inline
-        LED(LEDPins ledpin = ONBOARD) {
-            this->ledpin = ledpin;
-            pinMode(ledpin, OUTPUT);
-            turnOFF();
-            counter = 0;
-        };
+        Time deadline;
+        Time period;
+        LEDControlModes mode;
 
         inline void
-        turnON(void) {
+        on(void) {
             digitalWrite(ledpin, status = LED_ON);
         };
 
         inline void
-        turnOFF() {
+        off(void) {
             digitalWrite(ledpin, status = LED_OFF);
         };
 
         inline void
         toggle(void) {
             if (status == LED_ON) {
-                turnOFF();
+                off();
             } else {
-                turnON();
+                on();
             }
         };
+
+    public:
+        inline
+        LED(LEDPins ledpin = ONBOARD) {
+            this->ledpin = ledpin;
+            pinMode(ledpin, OUTPUT);
+            mode = LED_MANUAL;
+            off();
+        };
+
+        inline void
+        turnON(void) {
+            mode = LED_MANUAL;
+            on();
+        };
+
+        inline void
+        turnOFF() {
+            mode = LED_MANUAL;
+            off();
+        };
+
+        inline void
+        setPeriod(Time period) {
+            mode = LED_TIMED;
+            this->period = period;
+            deadline = SystemTime::getTime(period);
+        }
+
+        inline void
+        setScaler(unsigned long long scaler) {
+            mode = LED_SCALED;
+            this->scaler = scaler;
+        }
 
         inline LEDStatus
         getStatus(void) {
             return status;
         };
 
-        inline void blink(unsigned long long count) {
-            if (counter++ == count) {
-                counter = 0;
-                toggle();
+        inline void blink(void) {
+            switch (mode) {
+                case LED_TIMED:
+                    if (SystemTime::isExpired(deadline)) {
+                        deadline += period;
+                        toggle();
+                    }
+                    break;
+                case LED_SCALED:
+                    if (counter++ == scaler) {
+                        counter = 0;
+                        toggle();
+                    }
+                    break;
+                case LED_MANUAL:
+                    toggle();
+                    break;
+                default: while (1);
             }
         }
 
@@ -70,6 +117,7 @@ class LED {
                 toggle();
                 for (int i = 0; i < INT_MAX; i++)
                     a = i; // Do something in the busy loop
+
             }
         }
 

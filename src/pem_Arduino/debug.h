@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Intel Corporation.
+ * Copyright (c) 2014, 2015, Intel Corporation.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -14,15 +14,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 #include "led.h"
+#include "system_time.h"
 #include "hw-adaptation.h"
-
-#define blink_led(led, DIVIDER) { \
-    static unsigned counter = 0; \
-    if (counter++ == DIVIDER) { \
-        counter = 0; \
-        Debug::led->toggle(); \
-    } \
-}
 
 class Debug {
     public:
@@ -37,10 +30,6 @@ class Debug {
             red = new LED(RED);
             green = new LED(GREEN);
             blue = new LED(BLUE);
-            onboard->turnOFF();
-            red->turnOFF();
-            green->turnOFF();
-            blue->turnOFF();
         }
 };
 #endif
