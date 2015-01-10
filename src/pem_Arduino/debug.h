@@ -17,6 +17,10 @@
 #include "system_time.h"
 #include "hw-adaptation.h"
 
+typedef enum {
+    RED = PIN_RED_LED, GREEN = PIN_GREEN_LED, BLUE = PIN_BLUE_LED
+} RGBDebugLED;
+
 class Debug {
     public:
         static LED *onboard;

@@ -19,10 +19,7 @@
 
 typedef enum {LED_OFF = LOW, LED_ON = HIGH} LEDStatus;
 
-typedef enum {
-    ONBOARD = PIN_ONBOARD_LED,
-    RED = PIN_RED_LED, GREEN = PIN_GREEN_LED, BLUE = PIN_BLUE_LED
-} LEDPins;
+typedef enum {ONBOARD = PIN_ONBOARD_LED} OnboardLEDPin;
 
 typedef enum {LED_TIMED, LED_SCALED, LED_MANUAL} LEDControlModes;
 

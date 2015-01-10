@@ -19,6 +19,6 @@ typedef enum {
     PIN_GREEN_LED   = PIN_05,
     PIN_BLUE_LED    = PIN_06,
     PIN_ONBOARD_LED = PIN_13
-} PinMapping;
+} LEDPinMapping;
 
 #endif
