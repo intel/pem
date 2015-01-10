@@ -18,13 +18,18 @@
 
 
 typedef enum {LED_OFF = LOW, LED_ON = HIGH} LEDStatus;
-typedef enum {ONBOARD = PIN_13, RED = PIN_04, GREEN = PIN_05, BLUE = PIN_06} LEDPins;
+
+typedef enum {
+    ONBOARD = PIN_ONBOARD_LED,
+    RED = PIN_RED_LED, GREEN = PIN_GREEN_LED, BLUE = PIN_BLUE_LED
+} LEDPins;
+
 typedef enum {LED_TIMED, LED_SCALED, LED_MANUAL} LEDControlModes;
 
 class LED {
     private:
         LEDStatus status;
-        LEDPins ledpin;
+        int ledpin;
         unsigned long long scaler;
         unsigned long long counter;
         Time deadline;
@@ -52,7 +57,7 @@ class LED {
 
     public:
         inline
-        LED(LEDPins ledpin = ONBOARD) {
+        LED(int ledpin = ONBOARD) {
             this->ledpin = ledpin;
             pinMode(ledpin, OUTPUT);
             mode = LED_MANUAL;

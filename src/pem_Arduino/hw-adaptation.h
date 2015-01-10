@@ -52,6 +52,8 @@ typedef enum {
     PIN_08, PIN_09, PIN_10, PIN_11, PIN_12, PIN_13
 } Pins;
 
+#include "pinmapping.h"
+
 typedef uint32_t Time;
 
 typedef unsigned char MessageChar;
