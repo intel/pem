@@ -15,7 +15,7 @@
 
 Name:       %{projectname}
 Summary:    Peripherals EMulator
-Version:    0.1.0
+Version:    0.1.1
 Release:    1
 Group:      Development/Tools
 License:    GPL-2.0+
@@ -53,5 +53,6 @@ install -m 0644 src/pem_Arduino/* %{buildroot}/%{_datadir}/%{projectname}/pem_Ar
 %{python_sitelib}/%{projectname}-%{version}-*.egg-info
 %{python_sitelib}/%{projectname}
 %{_datadir}/%{projectname}
+%{_bindir}/%{name}
 
 %changelog

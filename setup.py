@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # vim: ai ts=4 sts=4 et sw=4
 #
-# Copyright (c) 2014, Intel Corporation.
+# Copyright (c) 2014, 2015, Intel Corporation.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms and conditions of the GNU General Public License,
@@ -24,7 +24,7 @@ DATA_ARDUINO_SRC_PATH = os.path.join(DATA_PATH, "pem_Arduino")
 DATA_DOCS_PATH = os.path.join(DATA_PATH, "docs")
 
 setup(name=PROJECT_NAME,
-      version="0.1.0",
+      version="0.1.1",
       description="Peripherals Emulator",
       author="Igor Stoppa",
       author_email="igor.stoppa@intel.com",
@@ -35,4 +35,5 @@ setup(name=PROJECT_NAME,
                   (DATA_DOCS_PATH, []),
                  ],
       include_package_data=True,
+      entry_points={'console_scripts': ['pem = pem.main:main'],},
      )
