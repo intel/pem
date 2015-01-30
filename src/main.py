@@ -10,19 +10,34 @@
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 # more details.
 #
+"""
+Main entry point for the emulator.
+"""
 
 import sys
 
 from pem.emulator import Emulator
 
-def main(argv=sys.argv[1:]):
+def main(argv=None):
     """
-    Command line entry point.
+    Entry point for calling from other python code.
     """
+    # In case of command line, the setuptools stub will
+    # not pass anything, thus leaving untouched the original
+    # values of sys.argv
+    #
+    # In case of use as library, the caller can pass the
+    # desired values for the parameters.
+    if argv is not None:
+        backup_argv = sys.argv
+        sys.argv = argv
     # pylint: disable=invalid-name
     emulator = Emulator()
     # pylint: enable=invalid-name
     emulator.main()
+    if argv is not None:
+        sys.argv = backup_argv
+
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    sys.exit(main())

@@ -1,3 +1,8 @@
+* 2015-01-30 Igor Stoppa <igor.stoppa@intel.com> 0.1.3
+  - Improve parameters handling for both command line
+    and library use.
+  - Fix some dates.
+
 * 2015-01-30 Igor Stoppa <igor.stoppa@intel.com> 0.1.2
   - Remove debug print causing problems with UNO cfg
 
