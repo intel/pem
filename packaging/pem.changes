@@ -1,3 +1,6 @@
+* 2015-01-31 Igor Stoppa <igor.stoppa@intel.com> 0.1.2
+  - Remove debug print causing problems with UNO cfg
+
 * 2015-01-30 Igor Stoppa <igor.stoppa@intel.com> 0.1.1
   - Transition to setuptools for the main entry point
 

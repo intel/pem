@@ -83,7 +83,6 @@ class ControlSerialPort: public Message,
         virtual inline bool
         lowPriorityExecute(void) final {
             Debug::onboard->blink();
-            Serial.print(1000000 * 7 / getSpeed());
             if (ping) {
                 ping = false;
                 tx_ping();
