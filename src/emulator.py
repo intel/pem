@@ -26,6 +26,7 @@ import importlib
 import json
 
 from pem.inputrecorder import start_ui
+from pem.inputrecorder import wait_for_ui
 from pem.serialconnection import SerialConnection
 from pem.keyboard import Keyboard
 
@@ -137,7 +138,7 @@ class Emulator(object):
                                                  .format(cls._args.data_sink))
                                 return -1
                         if data["command"] == "Quit":
-                            inputrecorder.wait_for_ui()
+                            wait_for_ui()
                         return 0
                 elif data["type"] == "keyboard":
                     output_data.append(data)
