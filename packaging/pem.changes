@@ -1,3 +1,7 @@
+* 2015-02-10 Igor Stoppa <igor.stoppa@intel.com> 0.1.5
+  - Fix import for threading ui.
+  - Fix wrong version license in spec file.
+
 * 2015-02-10 Igor Stoppa <igor.stoppa@intel.com> 0.1.4
   - Fix import of ui for recording inputs.
 

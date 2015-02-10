@@ -15,7 +15,7 @@
 
 Name:       %{projectname}
 Summary:    Peripherals EMulator
-Version:    0.1.4
+Version:    0.1.5
 Release:    1
 Group:      Development/Tools
 License:    GPL-2.0
