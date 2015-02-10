@@ -1,3 +1,6 @@
+* 2015-02-10 Igor Stoppa <igor.stoppa@intel.com> 0.1.4
+  - Fix import of ui for recording inputs.
+
 * 2015-01-30 Igor Stoppa <igor.stoppa@intel.com> 0.1.3
   - Improve parameters handling for both command line
     and library use.

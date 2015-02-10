@@ -25,7 +25,7 @@ import importlib
 
 import json
 
-import pem.inputrecorder
+from pem.inputrecorder import start_ui
 from pem.serialconnection import SerialConnection
 from pem.keyboard import Keyboard
 
@@ -119,7 +119,7 @@ class Emulator(object):
         keyboard = Keyboard()
         handlers = {"keyboard": keyboard_formatter,
                     "control": control}
-        cls._in_queue = inputrecorder.start_ui(handlers)
+        cls._in_queue = start_ui(handlers)
         while True:
             if cls._in_queue.empty() is False:
                 data = cls._in_queue.get()

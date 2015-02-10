@@ -24,7 +24,7 @@ DATA_ARDUINO_SRC_PATH = os.path.join(DATA_PATH, "pem_Arduino")
 DATA_DOCS_PATH = os.path.join(DATA_PATH, "docs")
 
 setup(name=PROJECT_NAME,
-      version="0.1.3",
+      version="0.1.4",
       description="Peripherals Emulator",
       author="Igor Stoppa",
       author_email="igor.stoppa@intel.com",
