@@ -18,7 +18,7 @@ Summary:    Peripherals EMulator
 Version:    0.1.4
 Release:    1
 Group:      Development/Tools
-License:    GPL-2.0+
+License:    GPL-2.0
 BuildArch:  noarch
 Source:     %{name}-%{version}.tar.gz
 Source100: %{name}-rpmlintrc
