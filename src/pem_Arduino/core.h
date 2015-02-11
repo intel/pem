@@ -15,15 +15,34 @@
 #define CORE_H
 #include "task.h"
 
+#define deploy(ClassName)\
+ClassName *main_class {new ClassName()};\
+\
+void setup() {\
+    main_class->setup();\
+}\
+\
+void loop(void) {\
+    main_class->loop();\
+}
+
 class Core {
     protected:
+        virtual void
+        customInit(void) = 0;
+
     public:
         Core(void);
 
         inline void
-        mainLoop(void) {
-            Task::processRegularQueues();
+        setup(void) {
+            customInit();
+            Task::start();
         }
 
+        inline void
+        loop(void) {
+            Task::processRegularQueues();
+        }
 };
 #endif

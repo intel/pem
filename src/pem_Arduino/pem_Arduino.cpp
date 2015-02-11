@@ -11,12 +11,14 @@
  * more details.
  */
 
-#include "debug.h"
 #include "core.h"
+#include "controlserialport.h"
+#include "serkeyboard.h"
+#include "messageprocessor.h"
+#include "messagefifo.h"
 #include "hw-adaptation.h"
-#include "message.h"
 
-// The includes below are a hack to workaround a shortcoming of the IDE.
+// The include below is a hack to workaround a shortcoming of the IDE.
 // The IDE doesn't acknowledge the includes, when they are in other files,
 // unless they first show up in the main file.
 
@@ -24,13 +26,37 @@
     #include <SoftwareSerial.h>
 #endif
 
-Core *core;
+class Pem: public Core {
+    protected:
+        inline virtual void
+        customInit(void) final {
+            Debug::blue->turnOFF();
+            Debug::onboard->turnOFF();
+            ControlSerialPort * controlport;
+            MessageProcessor * messageprocessor;
+            KeyBoard * keyboard;
+            MessageFifo * inputfifo;
+            MessageCharFifo * replyfifo;
 
-//SoftwareSerial ss(10, 11);
-void setup() {
-    core = new Core();
-}
+            controlport = getControlPort();
+            messageprocessor = new MessageProcessor();
+            keyboard = getKeyBoard();
 
+            inputfifo = new MessageFifo(1, messageprocessor,
+                                        (HighPriorityTask*)controlport);
+            replyfifo = new MessageCharFifo(3, (LowPriorityTask*)controlport,
+                                        messageprocessor);
+
+            controlport->configure(inputfifo, replyfifo);
+            messageprocessor->configure(inputfifo, replyfifo);
+
+            ((HighPriorityTask*)controlport)->schedule();
+        };
+};
+
+deploy(Pem);
+
+/*
 extern unsigned int __bss_end;
 extern unsigned int __heap_start;
 extern void *__brkval;
@@ -48,7 +74,5 @@ int freeMemory() {
 int printFreeMemory(void) {
     int mem = freeMemory();
 }
+*/
 
-void loop() {
-    core->mainLoop();
-}
