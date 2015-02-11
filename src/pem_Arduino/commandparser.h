@@ -64,7 +64,11 @@ class CommandParser {
         parseCommand(const MessageChar *command) = 0;
 
     public:
-        CommandParser(void);
+        CommandParser(void):
+            next(list)
+        {
+            list = this;
+        };
 
         static MessageChar *
         parseCommands(Message *message);

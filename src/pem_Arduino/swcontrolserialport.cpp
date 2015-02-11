@@ -16,8 +16,9 @@
 
 enum {SW_RX_PIN = PIN_10, SW_TX_PIN = PIN_11};
 
-SWControlSerialPort::SWControlSerialPort(void) {
-    sw_serial_port = new SoftwareSerial(SW_RX_PIN, SW_TX_PIN);
+SWControlSerialPort::SWControlSerialPort(void):
+    sw_serial_port(new SoftwareSerial(SW_RX_PIN, SW_TX_PIN))
+{
     sw_serial_port->begin(getSpeed());
     sw_serial_port->flush();
 }

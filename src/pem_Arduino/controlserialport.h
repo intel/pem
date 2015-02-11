@@ -63,7 +63,10 @@ class ControlSerialPort: public Message,
         }
 
     public:
-        ControlSerialPort(void);
+        ControlSerialPort(void):
+            rxfifo((MessageFifo *)0),
+            txfifo((MessageCharFifo *)0),
+            ping(false){};
 
         virtual inline void
         configure(MessageFifo *rxfifo, MessageCharFifo *txfifo) final {

@@ -24,11 +24,6 @@ KeyBoard::command_ids_list[] = {CMD_KEY_DATA};
 const CharsCounter
 KeyBoard::command_ids_number = sizeof(command_ids_list) / sizeof (MessageChar);
 
-KeyBoard::KeyBoard(void) {
-    outputfifo = new KeyboardFifo(5, this);
-}
-
-
 MessageChar *
 KeyBoard::parseCommand(const MessageChar *command) {
     switch (command[1]) {

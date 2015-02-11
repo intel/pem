@@ -55,7 +55,9 @@ class KeyBoard: public CommandParser, public LowPriorityTask  {
             return false;
         }
     public:
-        KeyBoard(void);
+        KeyBoard(void):
+            outputfifo(new KeyboardFifo(5, this))
+        {};
 
  };
 #endif

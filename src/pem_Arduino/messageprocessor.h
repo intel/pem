@@ -41,7 +41,9 @@ class MessageProcessor: public HighPriorityTask {
         };
 
     public:
-        MessageProcessor(void);
+        MessageProcessor(void):
+            inputfifo((MessageFifo *)0)
+        {};
 
         virtual inline void
         configure(MessageFifo *inputfifo, MessageCharFifo *replyfifo) final {

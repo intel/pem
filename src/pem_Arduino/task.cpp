@@ -18,7 +18,8 @@
 Task *
 Task::execution_queues[PRIORITY_TYPES];
 
-Task::Task(void) {
+Task::Task(void):
+    enqueued(false)
+{
     hold();
-    enqueued = false;
 };

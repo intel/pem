@@ -19,14 +19,15 @@
 const MessageChar
 Message::SIGNATURE[] = {0xAA, 0x55};
 
-Message::Message(void) {
-    payload = new MessageChar[MAX_PAYLOAD_LEN];
+Message::Message(void):
+    payload(new MessageChar[MAX_PAYLOAD_LEN])
+{
     resetAcquisition();
 }
 
 MessageChar
 Message::getChecksum(const MessageChar *buffer, CharsCounter len) {
-    MessageChar checksum = 0;
+    MessageChar checksum {0};
     for (CharsCounter i = 0; i < len; i++) {
         checksum += buffer[i];
     }
@@ -107,7 +108,7 @@ Message::acquire(void) {
 
 CharsCounter
 Message::out(const MessageChar output_buffer[]) {
-    MessageChar msg_checksum = 0;
+    MessageChar msg_checksum {0};
     CharsCounter msg_len = output_buffer[0] + MIN_MSG_LEN - 2; // XXX
     writeChar(SIGNATURE[0]);
     writeChar(SIGNATURE[1]);

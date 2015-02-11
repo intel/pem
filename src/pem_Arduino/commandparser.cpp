@@ -17,11 +17,6 @@
 CommandParser *
 CommandParser::list = NULL;
 
-CommandParser::CommandParser(void) {
-    next = list;
-    list = this;
-}
-
 MessageChar *
 CommandParser::parseCommands(Message *message) {
     const MessageChar *payload = message->getPayload();
