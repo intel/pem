@@ -42,7 +42,7 @@ typedef enum{
     SYSTEM_TIC_100Hz = TCNT1_100Hz, SYSTEM_TIC_1kHz   = TCNT1_1kHz,
     SYSTEM_TIC_10kHz = TCNT1_10kHz, SYSTEM_TIC_100kHz = TCNT1_100kHz,
     SYSTEM_TIC_VALUES = 4,
-    SYSTEM_TIC = SYSTEM_TIC_10kHz  // Change this to modify TIC frequency
+    SYSTEM_TIC = SYSTEM_TIC_1kHz  // Change this to modify TIC frequency
 } SystemTicPreloadValues;
 
 #endif
