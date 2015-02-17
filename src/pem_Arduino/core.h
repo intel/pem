@@ -16,9 +16,10 @@
 #include "task.h"
 
 #define deploy(ClassName)\
-ClassName *main_class {new ClassName()};\
+ClassName *main_class;\
 \
 void setup() {\
+    main_class = new ClassName();\
     main_class->setup();\
 }\
 \
