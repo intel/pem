@@ -175,7 +175,7 @@ class Emulator(object):
         for data in recorded_data:
             if data["type"] == "keyboard":
                 payload = keyboard.encode(data)
-                time.sleep((data["timestamp"] - prev_time) / 1000)
+                time.sleep((data["timestamp"] - prev_time) / 1000.0)
                 prev_time = data["timestamp"]
                 if not cls._transmit_with_retry(payload):
                     return -1
