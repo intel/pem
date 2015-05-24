@@ -1,0 +1,55 @@
+Building and Installing
+=======================
+
+Home Page
+---------
+The project is hosted on the website of the Intel Open Source Technology
+Center, 01.org :  http://01.org/PEM
+
+
+Premise
+-------
+The SW has been tested with OpenSUSE 13.2 64 bits.
+Other distros should work equally well, since the code is 100% python, but
+they are not confirmed.
+For example, some issues might arise with the packaging, when using Other
+distros still based on rpms, because they might have different naming and/or
+breakdown of the dependency.
+About the Arduino: at the moment the only supported type is UNO R3, as
+explained in detail in the documentation.
+
+
+Configuring and installing from rpm repository
+----------------------------------------------
+To use the ready-made packages, add and enable the rpm repo:
+[XXX placeholder to download area from 01.org]
+
+
+
+Installing from sources
+-----------------------
+For the latest version of the SW, check the proejct page on github:
+https://github.com/01org-AutomatedFlasherTester/PEM
+For creating (s)rpms packages, please refer to [XXX placeholder]
+Alternatively, on non-rpm distros, it is possible to install by using directly
+the setup.py file in the root directory of the repo.
+
+
+
+Preparing the Arduino
+---------------------
+* Inside the sources directory there is a subfolder containing the sources for
+Arduino HW. To deploy them to the device, it is sufficient to use the Arduino
+IDE, opening the main file, building it and downloading the resulting binary
+to the device.
+
+* After the Arduino is successfully flashed, its USB connector must be converted
+to USB-keyboard mode, following the instructions from:
+http://wiki.sgmk-ssam.ch/index.php?title=Arduino_Uno_R3_as_HID
+Note: to update the FW on the Arduino, first it must be brought back to its 
+initial USB-gadget mode, still following the instructions from the wiki.
+
+* The Arduino is connected to the host through an USB-to-serial adapter.
+The TX pin of the adapter must be connected to the RX line provided by the
+emulated serial port on the Arduino (PIN_10), while the RX pin of the emulator
+must be connected to the TX provided by the Arduino.
