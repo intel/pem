@@ -29,7 +29,9 @@ To use the ready-made packages, add and enable the rpm repo:
 Installing from sources
 -----------------------
 For the latest version of the SW, check the proejct page on github:
+
 https://github.com/01org-AutomatedFlasherTester/PEM
+
 For creating (s)rpms packages, please refer to [XXX placeholder]
 Alternatively, on non-rpm distros, it is possible to install by using directly
 the setup.py file in the root directory of the repo.
@@ -45,9 +47,12 @@ to the device.
 
 * After the Arduino is successfully flashed, its USB connector must be converted
 to USB-keyboard mode, following the instructions from:
-http://wiki.sgmk-ssam.ch/index.php?title=Arduino_Uno_R3_as_HID
+
+http://hunt.net.nz/users/darran/
+http://www.arduino.cc/en/Hacking/DFUProgramming8U2
+
 Note: to update the FW on the Arduino, first it must be brought back to its 
-initial USB-gadget mode, still following the instructions from the wiki.
+initial USB-gadget mode, still following the instructions from the links.
 
 * The Arduino is connected to the host through an USB-to-serial adapter.
 The TX pin of the adapter must be connected to the RX line provided by the
