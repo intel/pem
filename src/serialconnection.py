@@ -69,18 +69,19 @@ class SerialConnection(Phys):
         self._ser.xonxoff = False
         self._ser.writeTimeout = 2
         self._ser.open()
-        # The following sequence will reset the Arduino
-        self._ser.setDTR(True)
-        self._ser.setDsrDtr(True)
-        self._ser.setRTS(True)
-        self._ser.setRtsCts(True)
-        time.sleep(0.22)
-        self._ser.setDTR(False)
-        self._ser.setDsrDtr(False)
-        self._ser.setRTS(False)
-        self._ser.setRtsCts(False)
-        self._ser.flushInput()
-        self._ser.flushOutput()
+        # The following sequence will reset the Arduino but only works on
+        # limited USB-to-serial adapters
+        # self._ser.setDTR(True)
+        # self._ser.setDsrDtr(True)
+        # self._ser.setRTS(True)
+        # self._ser.setRtsCts(True)
+        # time.sleep(0.22)
+        # self._ser.setDTR(False)
+        # self._ser.setDsrDtr(False)
+        # self._ser.setRTS(False)
+        # self._ser.setRtsCts(False)
+        # self._ser.flushInput()
+        # self._ser.flushOutput()
         # Let the Arduino recover from the reset.
         time.sleep(1)
         logging.info("Initialized Serial port {0}".format(self._ser.port))
