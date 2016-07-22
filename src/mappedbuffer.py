@@ -43,11 +43,11 @@ class MappedBuffer(object):
         self._fields = fields
         format_string = byte_order
         for field in self._fields:
-            field_formatter = field.values()[0]
+            field_formatter = list(field.values())[0]
             format_string += field_formatter
             if field_formatter is not 'x':  # Only if it's not padding
                 # pylint: disable=exec-used
-                exec("self." + field.keys()[0] + " = 0")
+                exec("self." + list(field.keys())[0] + " = 0")
                 # pylint: enable=exec-used
         self._buffer = Struct(format_string)
         self.buffer_length = len(self.pack())
@@ -58,7 +58,14 @@ class MappedBuffer(object):
         """
         Calculates the checksum (over 1 byte) of a given array.
         """
-        return sum(bytearray(packed_data)) % 256
+        _sum = 0
+        for char in packed_data:
+            if type(char) is int:
+                _sum = _sum + char
+            else:
+                _sum = _sum + ord(char)
+
+        return _sum % 256
 
     def pack(self):
         """
@@ -66,9 +73,9 @@ class MappedBuffer(object):
         """
         values = []
         for field in self._fields:
-            if field.values()[0] is not "x":  # Only if it's not padding
+            if list(field.values())[0] is not "x":  # Only if it's not padding
                 # pylint: disable=eval-used
-                values.append(eval("self." + field.keys()[0]))
+                values.append(eval("self." + list(field.keys())[0]))
                 # pylint: enable=eval-used
         tupl = tuple(values)
         # pylint: disable=star-args
@@ -80,11 +87,11 @@ class MappedBuffer(object):
         Reads a string with binary data and updates the corresponding fields.
         Starts from an arbitrary position.
         """
-        retval = self._buffer.unpack_from(buffer=packed_data, offset=offset)
+        retval = self._buffer.unpack_from(buffer=packed_data.encode(), offset=offset)
         index = 0
         for field in self._fields:
             # pylint: disable=exec-used
-            exec("self." + field.keys()[0] + " = " + str(retval[index]))
+            exec("self." + list(field.keys())[0] + " = " + str(retval[index]))
             # pylint: enable=exec-used
             index += 1
         self.buffer_checksum = self.calculate_checksum(packed_data)

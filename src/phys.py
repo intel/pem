@@ -17,12 +17,17 @@ PC and Arduino.
 The actual connection object will derive from this and provide
 the implementation for the communication methods.
 """
+import sys
 import abc
 import binascii
 import datetime
 import logging
+from six import with_metaclass
 
-from mappedbuffer import MappedBuffer
+try:
+    from mappedbuffer import MappedBuffer
+except ImportError:
+    from .mappedbuffer import MappedBuffer
 
 # Structure of the message, as seen by the phys layer
 #
@@ -35,12 +40,10 @@ from mappedbuffer import MappedBuffer
 # [N]   Checksum of the previous bytes
 
 
-class Phys(object):
+class Phys(with_metaclass(abc.ABCMeta, object)):
     """
     Physical Connection Object: interacts with the Arduino device.
     """
-    # pylint: disable=abstract-class-not-used
-    __metaclass__ = abc.ABCMeta
     _imports = {}
     _arguments = {}
     _message_id = 0
@@ -80,7 +83,7 @@ class Phys(object):
         Each entry will be loaded into ArgumentParser.add_argument
         The default dictionary - cls._arguments - is empty.
         """
-        return cls._arguments.values(), cls._imports
+        return list(cls._arguments.values()), cls._imports
 
     @abc.abstractmethod
     def _test_connection(self):
@@ -160,7 +163,7 @@ class Phys(object):
                 receive_buffer.append(self._read_char())
                 if len(receive_buffer) == size:
                     return receive_buffer
-        print "Timeout"
+        logging.info("phys._receive_buffer timeout")
         return []
 
     def receive_message(self, timeout_ms=500):
@@ -238,7 +241,11 @@ class Phys(object):
         message = message + self._checksum.pack()
         logging.info("TX {0}".format(binascii.hexlify(message)))
         for character in message:
-            self._write_char(character)
+            #check for python version
+            if sys.version_info[0] == 2:
+                self._write_char(character)
+            elif sys.version_info[0] == 3:
+                self._write_char(chr(character).encode("Latin-1"))
         self._flush()
 
     def ping(self):

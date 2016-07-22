@@ -88,7 +88,7 @@ class Emulator(object):
         retransmissions = 0
         while True:
             cls._phys.transmit_message(payload)
-            if cls._phys.receive_message(timeout_ms=200) is False:
+            if cls._phys.receive_message(timeout_ms=500) is False:
                 logging.critical("Receive Error")
                 retransmissions += 1
                 if retransmissions == cls._MAX_RETRANSMISSIONS:
@@ -132,6 +132,7 @@ class Emulator(object):
                             try:
                                 with open(cls._args.data_sink, "wb") as out_f:
                                     for line in output_data:
+                                        line = line.decode("utf-8")
                                         out_f.write(json.dumps(line) + '\n')
                             except IOError:
                                 logging.critical("Cannot save data to {0}."
@@ -163,6 +164,7 @@ class Emulator(object):
                 lines = in_f.readlines()
                 recorded_data = []
                 for line in lines:
+                    line = line.decode("utf-8")
                     recorded_data.append(json.loads(line))
         except IOError:
             logging.critical("Failed to open {0}."
@@ -200,4 +202,3 @@ class Emulator(object):
         else:
             return -1
     # pylint: enable=too-few-public-methods
-

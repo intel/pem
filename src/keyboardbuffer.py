@@ -79,7 +79,7 @@ class KeyboardBuffer(object):
         Compose the modifier byte.
         """
         result = 0
-        for key in cls._modifiers.keys():
+        for key in list(cls._modifiers.keys()):
             result = result | \
                         cls._modifiers[key]["bitmask"] * \
                         cls._modifiers[key]["pressed"]
@@ -91,7 +91,7 @@ class KeyboardBuffer(object):
         Maps keys read as events to the codes outputted by a USB keyboard
         with US layout.
         """
-        if key in cls._hid_table.keys():
+        if key in list(cls._hid_table.keys()):
             hex_key = cls._hid_table[key]
         elif 'A' <= key and key <= 'Z':
             hex_key = ord(key) - ord('A') + 0x04
@@ -109,7 +109,7 @@ class KeyboardBuffer(object):
         Modifiers are tracked separately in a bitmap and do not influence
         the count.
         """
-        if key in cls._modifiers.keys():
+        if key in list(cls._modifiers.keys()):
             cls._modifiers[key]["pressed"] = True
             return
         key = cls._translate(key)
@@ -126,7 +126,7 @@ class KeyboardBuffer(object):
         released. Modifiers are tracked separately in a bitmap and do not
         influence the count.
         """
-        if key in cls._modifiers.keys():
+        if key in list(cls._modifiers.keys()):
             cls._modifiers[key]["pressed"] = False
             return
         key = cls._translate(key)

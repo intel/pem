@@ -14,9 +14,12 @@
 """
 Command manager for USB Keyboard emulation.
 """
-
-from command import Command
-from mappedbuffer import MappedBuffer
+try:
+    from command import Command
+    from mappedbuffer import MappedBuffer
+except ImportError:
+    from .command import Command
+    from .mappedbuffer import MappedBuffer
 
 CMD_NEW_KEYBOARD_DATA = 1
 

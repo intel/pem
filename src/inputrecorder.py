@@ -15,9 +15,15 @@
 Records Keyboard and mouse events.
 """
 
+try:
+    from Tkinter import Tk, Text, BOTH, W, N, E, S, END
+    from ttk import Frame, Button, Label, Style, Scrollbar
+except ImportError:
+    from tkinter import Tk, Text, BOTH, W, N, E, S, END
+    from tkinter.ttk import Frame, Button, Label, Style, Scrollbar
+
 from multiprocessing import Process, Queue
-from Tkinter import Tk, Text, BOTH, W, N, E, S, END
-from ttk import Frame, Button, Label, Style, Scrollbar
+
 import datetime
 
 from idlelib.WidgetRedirector import WidgetRedirector
