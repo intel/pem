@@ -88,6 +88,7 @@ class Emulator(object):
         retransmissions = 0
         while True:
             cls._phys.transmit_message(payload)
+            #Timeout increased from 200ms to 500ms for Python 3
             if cls._phys.receive_message(timeout_ms=500) is False:
                 logging.critical("Receive Error")
                 retransmissions += 1

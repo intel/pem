@@ -1,3 +1,9 @@
+* 2016-07-27 Simo Kuusela <simo.kuusela@intel.com> 0.1.11
+  - Make PEM compatible with both Python 2 and Python 3.
+  - In src/emulator.py/_transmit_with_retry, timeout value
+    for _phys.receive_message had to be increased, because
+    with Python 3 it didn't work that well with 200ms.
+
 * 2015-05-26 Igor Stoppa <igor.stoppa@intel.com> 0.1.10
   - Provide better links for DFU.
 
