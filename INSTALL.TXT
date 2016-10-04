@@ -3,47 +3,40 @@ Building and Installing
 
 Home Page
 ---------
-The project is hosted on the website of the Intel Open Source Technology
-Center, 01.org :  http://01.org/PEM
+The project is hosted on Intel Open Source Technology Center github: 
+https://github.com/01org/pem
 
 
 Premise
 -------
-The SW has been tested with OpenSUSE 13.2 64 bits.
+The SW has been tested with OpenSUSE 13.2 and 42.1 64 bits.
 Other distros should work equally well, since the code is 100% python, but
 they are not confirmed.
-For example, some issues might arise with the packaging, when using Other
-distros still based on rpms, because they might have different naming and/or
-breakdown of the dependency.
 About the Arduino: at the moment the only supported type is UNO R3, as
 explained in detail in the documentation.
 
 
-Configuring and installing from rpm repository
-----------------------------------------------
-To use the ready-made packages, add and enable the rpm repo:
-[XXX placeholder to download area from 01.org]
-
-
-
-Installing from sources
+Installing PEM
 -----------------------
-For the latest version of the SW, check the proejct page on github:
+Installing PEM can be done by cloning the repository and using setup.py to
+install:
 
-https://github.com/01org-AutomatedFlasherTester/PEM
-
-For creating (s)rpms packages, please refer to [XXX placeholder]
-Alternatively, on non-rpm distros, it is possible to install by using directly
-the setup.py file in the root directory of the repo.
-
+git clone https://github.com/01org/pem
+cd pem/
+sudo python setup.py install
 
 
 Preparing the Arduino
 ---------------------
-* Inside the sources directory there is a subfolder containing the sources for
-Arduino HW. To deploy them to the device, it is sufficient to use the Arduino
-IDE, opening the main file, building it and downloading the resulting binary
-to the device.
+* Plug the Arduino UNO to your computer. Using Arduino IDE 1.6.5 version 
+open the 'pem_Arduino.ino' file from 'pem/arduino/src/' folder. Use 
+Sketch->Verify/Compile to first compile the code and then Sketch->Upload 
+to flash the Arduino. Other way is to use already compiled binary file 
+and AVRDUDE which can be installed using a package manager. Flashing 
+Arduino this way can be done by issuing following command in the 
+'pem/arduino/binary' folder while Arduino is connected to your computer:
+
+sudo avrdude -patmega328p -carduino -P/dev/ttyACM0 -b115200 -D -Uflash:w:pem_Arduino.hex:i
 
 * After the Arduino is successfully flashed, its USB connector must be converted
 to USB-keyboard mode, following the instructions from:
